@@ -1,0 +1,42 @@
+html {
+  font-family: system-ui;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*, ::before, ::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #111;
+  color: #fff;
+}
+
+.game {
+  display: grid;
+  place-items: center;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  height: 30px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 500px;
+  height: auto;
+  padding: 1rem;
+  border: 1px solid #00beef;
+}
