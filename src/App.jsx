@@ -220,7 +220,7 @@ function App () {
         <Slot columnContent={turn} />
       </section>
       <section className='board'>
-        <Board board={board} updateBoard={updateBoard} turn={turn} />
+        <Board board={board} updateBoard={updateBoard} />
       </section>
       <button className='resetGame' onClick={resetGame}>Reset Game </button>
       <WinnerModal winner={winner} resetGame={resetGame} />

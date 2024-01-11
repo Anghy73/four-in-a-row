@@ -1,20 +1,23 @@
-function Slot ({ isOponent, columnContent }) {
+function Slot ({ columnContent }) {
   let classNameSlot = ''
-  if (columnContent === '') {
-    classNameSlot = 'empty'
-  }
-  if (columnContent === 'X') {
-    classNameSlot = 'slot playerOne'
-  }
-  if (columnContent === 'O') {
-    classNameSlot = 'slot playerTwo'
+
+  switch (columnContent) {
+    case '':
+      classNameSlot = 'empty'
+      break
+    case 'X':
+      classNameSlot = 'slot playerOne'
+      break
+    case 'O':
+      classNameSlot = 'slot playerTwo'
+      break
+    default:
+      break
   }
 
-  {
-    return (
-      <div className={classNameSlot} />
-    )
-  }
+  return (
+    <div className={classNameSlot} />
+  )
 }
 
 export default Slot

@@ -1,15 +1,21 @@
+import Slot from './Slot'
+
 function WinnerModal ({ winner, resetGame }) {
   if (winner === null) return
 
   const winnerText = winner === false ? 'Empate' : 'Ganó'
 
   return (
-    <div className='winner-modal'>
-      <h1>
-        {winnerText}
-      </h1>
-      <h2>{winner}</h2>
-      <button onClick={resetGame}>Again</button>
+    <div className='winnerModal'>
+      <section className='contentWin'>
+        <h1>
+          {winnerText}
+        </h1>
+        <section className='cellWin'>
+          <Slot columnContent={winner} />
+        </section>
+        <button className='resetGame' onClick={resetGame}>Again</button>
+      </section>
     </div>
   )
 }

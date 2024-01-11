@@ -1,13 +1,13 @@
 import Slot from './Slot'
 
-function Cell ({ children, updateBoard, columnContent, x, y, isOponent }) {
+function Cell ({ children, updateBoard, columnContent, x, y }) {
   const handleClick = () => {
     updateBoard(x, y, columnContent)
   }
   return (
     <div className='cell' onClick={handleClick} x={x} y={y}>
       {columnContent}
-      <Slot isOponent={isOponent} columnContent={columnContent} />
+      <Slot columnContent={columnContent} />
     </div>
   )
 }
