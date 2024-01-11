@@ -35,12 +35,14 @@ function App () {
     for (let i = 0; i < boardToCheck[row].length; i++) {
       if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === turn) {
         count += 1
+        if (count >= 3) {
+          return true
+        }
+      } else if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === '') {
+        count = 0
       }
       // console.log(count)
       // console.log(boardToCheck[row][i])
-    }
-    if (count >= 3) {
-      return true
     }
 
     return false
@@ -119,7 +121,34 @@ function App () {
         }
         // console.log(i)
         // console.log(boardToCheck[i][sum])
+        console.log(boardToCheck[i + 1][sum + 1])
         sum += 1
+      }
+    } catch (error) {
+    }
+
+    if (count >= 3) {
+      return true
+    }
+
+    return false
+  }
+
+  const checkLineReverseDiagonal = (boardToCheck, row, column) => {
+    // const sum = 0
+    let count = 0
+    const initialNum = row + column
+    // console.log(initialNum)
+
+    try {
+      for (let i = 0; i < boardToCheck[row].length; i++) {
+        if (boardToCheck[i][initialNum - i] === turn && boardToCheck[i + 1][initialNum - i - 1] === turn) {
+          console.log(count)
+          count += 1
+        }
+        // console.log(i)
+        // console.log(boardToCheck[i][initialNum - i])
+        // console.log(boardToCheck[i + 1][initialNum - i - 1])
       }
     } catch (error) {
     }
@@ -139,8 +168,8 @@ function App () {
   //       if (boardToCheck[i][i] === turn && boardToCheck[i + 1][i + 1] === turn) {
   //         count += 1
   //       }
-  //       // console.log(count)
-  //       // console.log(boardToCheck[i][i])
+  //       console.log(count)
+  //       console.log(boardToCheck[i][i])
   //     }
   //   } catch (error) {
   //   }
@@ -167,6 +196,9 @@ function App () {
       setWinner(turn)
     }
     if (checkLineDiagonal(boardToCheck, row, column)) {
+      setWinner(turn)
+    }
+    if (checkLineReverseDiagonal(boardToCheck, row, column)) {
       setWinner(turn)
     }
   }
