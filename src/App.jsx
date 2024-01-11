@@ -1,6 +1,7 @@
-import Board from './components/Board'
 import { useState } from 'react'
+import Board from './components/Board'
 import WinnerModal from './components/WinnerModal'
+import Slot from './components/Slot'
 
 function App () {
   const [board, setBoard] = useState(
@@ -14,7 +15,12 @@ function App () {
     ]
   )
 
-  const [turn, setTurn] = useState('X')
+  const TURNS = {
+    X: 'X',
+    O: 'O'
+  }
+
+  const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
 
   const resetGame = () => {
@@ -26,23 +32,19 @@ function App () {
       ['', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '']
     ])
-    setTurn('X')
+    setTurn(TURNS.X)
     setWinner(null)
   }
 
   const checkLineHorizontal = (boardToCheck, row, column) => {
     let count = 0
     for (let i = 0; i < boardToCheck[row].length; i++) {
-      if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === turn) {
+      if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === turn && boardToCheck[row][i] === turn && boardToCheck[row][i + 2] === turn) {
         count += 1
-        if (count >= 3) {
-          return true
-        }
-      } else if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === '') {
-        count = 0
       }
-      // console.log(count)
-      // console.log(boardToCheck[row][i])
+    }
+    if (count >= 2) {
+      return true
     }
 
     return false
@@ -56,8 +58,6 @@ function App () {
         if (boardToCheck[i][column] === turn && boardToCheck[i + 1][column] === turn) {
           count += 1
         }
-        // console.log(count)
-        // console.log(boardToCheck[i][column])
       }
     } catch (error) {
     }
@@ -75,28 +75,21 @@ function App () {
     let initialNum = row - column
 
     if (initialNum === -1) {
-      console.log('si')
       initialNum = 0
       sum = 1
     } else if (initialNum === -2) {
-      console.log('-2')
       initialNum = 0
       sum = 2
     } else {
-      console.log('-3')
       initialNum = 0
       sum = 3
     }
-    // console.log(row - column)
-    // console.log(column)
 
     try {
       for (let i = initialNum; i < boardToCheck[row].length; i++) {
         if (boardToCheck[i][sum] === turn && boardToCheck[i + 1][sum + 1] === turn) {
           count += 1
         }
-        console.log(i)
-        console.log(boardToCheck[i][sum])
         sum += 1
       }
     } catch (error) {
@@ -119,9 +112,6 @@ function App () {
         if (boardToCheck[i][sum] === turn && boardToCheck[i + 1][sum + 1] === turn) {
           count += 1
         }
-        // console.log(i)
-        // console.log(boardToCheck[i][sum])
-        console.log(boardToCheck[i + 1][sum + 1])
         sum += 1
       }
     } catch (error) {
@@ -135,20 +125,14 @@ function App () {
   }
 
   const checkLineReverseDiagonal = (boardToCheck, row, column) => {
-    // const sum = 0
     let count = 0
     const initialNum = row + column
-    // console.log(initialNum)
 
     try {
       for (let i = 0; i < boardToCheck[row].length; i++) {
         if (boardToCheck[i][initialNum - i] === turn && boardToCheck[i + 1][initialNum - i - 1] === turn) {
-          console.log(count)
           count += 1
         }
-        // console.log(i)
-        // console.log(boardToCheck[i][initialNum - i])
-        // console.log(boardToCheck[i + 1][initialNum - i - 1])
       }
     } catch (error) {
     }
@@ -160,45 +144,27 @@ function App () {
     return false
   }
 
-  // const checkLineReverseDiagonal = (boardToCheck, row, column) => {
-  //   let count = 0
-
-  //   try {
-  //     for (let i = 0; i < boardToCheck[row].length; i++) {
-  //       if (boardToCheck[i][i] === turn && boardToCheck[i + 1][i + 1] === turn) {
-  //         count += 1
-  //       }
-  //       console.log(count)
-  //       console.log(boardToCheck[i][i])
-  //     }
-  //   } catch (error) {
-  //   }
-
-  //   if (count >= 3) {
-  //     return true
-  //   }
-
-  //   return false
-  // }
-
   const checkWinner = (boardToCheck, row, column) => {
-    console.log(row, column)
-
     if (checkLineHorizontal(boardToCheck, row, column)) {
+      console.log('gano aqui')
       setWinner(turn)
     }
 
     if (checkLineVertical(boardToCheck, row, column)) {
+      console.log('gano aqui')
       setWinner(turn)
     }
 
     if (checkLineDiagonalNegative(boardToCheck, row, column)) {
+      console.log('gano aqui')
       setWinner(turn)
     }
     if (checkLineDiagonal(boardToCheck, row, column)) {
+      console.log('gano aqui')
       setWinner(turn)
     }
     if (checkLineReverseDiagonal(boardToCheck, row, column)) {
+      console.log('gano aqui')
       setWinner(turn)
     }
   }
@@ -228,6 +194,7 @@ function App () {
     if (boardToCheck[row][column] !== '') row -= 1
 
     boardToCheck[row][column] = turn
+    // boardToCheck[row][column] = <Slot isOponent={turn === TURNS.O} />
     setBoard(boardToCheck)
     checkWinner(boardToCheck, row, column)
   }
@@ -241,17 +208,21 @@ function App () {
       setWinner(false)
     }
 
-    setTurn((turn === 'X') ? 'O' : 'X')
+    setTurn((turn === TURNS.X) ? TURNS.O : TURNS.X)
 
     return null
   }
 
   return (
     <main className='game'>
-      <h1>4 in Raya</h1>
-      <section className='board'>
-        <Board board={board} updateBoard={updateBoard} />
+      <section className='currentTurn'>
+        <span>Turn</span>
+        <Slot columnContent={turn} />
       </section>
+      <section className='board'>
+        <Board board={board} updateBoard={updateBoard} turn={turn} />
+      </section>
+      <button className='resetGame' onClick={resetGame}>Reset Game </button>
       <WinnerModal winner={winner} resetGame={resetGame} />
     </main>
   )
