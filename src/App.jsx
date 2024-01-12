@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Board from './components/Board'
 import WinnerModal from './components/WinnerModal'
 import Slot from './components/Slot'
+import PlayPage from './components/PlayPage'
 
 function App () {
   const [board, setBoard] = useState(
@@ -22,6 +23,7 @@ function App () {
 
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
+  // const [activePage, setActivePage] = useState(true)
 
   const resetGame = () => {
     setBoard([
@@ -215,6 +217,7 @@ function App () {
 
   return (
     <main className='game'>
+      <PlayPage />
       <section className='currentTurn'>
         <span>Turn</span>
         <Slot columnContent={turn} />

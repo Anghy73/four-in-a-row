@@ -1,3 +1,13 @@
+:root {
+  --primary-color: #00beef;
+  --secundary-color: #111;
+  --black-color: #000;
+  --white-color: #fff;
+
+  --player-one: #ff2f89;
+  --player-two: #00ff77;
+}
+
 html {
   font-family: system-ui;
   scroll-behavior: smooth;
@@ -13,8 +23,8 @@ html {
 body {
   width: 100%;
   min-height: 100vh;
-  background-color: #111;
-  color: #fff;
+  background-color: var(--secundary-color);
+  color: var(--white-color);
 }
 
 .game {
@@ -30,10 +40,10 @@ body {
   display: grid;
   place-items: center;
   height: 50px;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--black-color);
+  color: var(--white-color);
   cursor: pointer;
-  text-shadow: 0 0 20px #fff;
+  text-shadow: 0 0 20px var(--white-color);
 }
 
 .board {
@@ -45,7 +55,7 @@ body {
   height: auto;
   padding: 1rem;
   border-radius: 10px;
-  border: 3px solid #00beef;
+  border: 3px solid var(--primary-color);
 }
 
 .currentTurn {
@@ -54,10 +64,10 @@ body {
   align-items: center;
   margin-bottom: 2rem;
   gap: 2rem;
-  background-color: #000;
+  background-color: var(--black-color);
   padding: .8rem 2rem;
   border-radius: 10px;
-  border: 2px solid #00beef;
+  border: 2px solid var(--primary-color);
 }
 
 .currentTurn > .slot {
@@ -69,24 +79,24 @@ body {
 }
 
 .resetGame {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--black-color);
+  color: var(--white-color);
   padding: .8rem 2rem;
   margin-top: 2rem;
   border-radius: 10px;
   font-size: .8rem;
   font-weight: bold;
   letter-spacing: 1px;
-  border: 2px solid #00beef;
+  border: 2px solid var(--primary-color);
   cursor: pointer;
   transition: background, box-shadow, color, 200ms linear;
 }
 
 .resetGame:hover {
-  background-color: #00beef;
+  background-color: var(--primary-color);
   color: #000;
   font-weight: bold;
-  box-shadow: 0 0 10px #00beef;
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
 .winnerModal {
@@ -108,9 +118,9 @@ body {
   justify-content: center;
   align-items: center;
   padding: 3rem 4rem;
-  background-color: #000;
+  background-color: var(--black-color);
   border-radius: 10px;
-  border: 2px solid #00beef;
+  border: 2px solid var(--primary-color);
 }
 
 .cellWin {
@@ -134,18 +144,120 @@ body {
   position: absolute;
   width: 30px;
   height: 30px;
-  background-color: #000;
+  background-color: var(--black-color);
   border-radius: 50%;
   border: 3px solid transparent;
   box-shadow: inset 0 0 6px transparent, 0 0 13px transparent;
 }
 
 .slot.playerOne {
-  border: 3px solid greenyellow;
-  box-shadow: inset 0 0 6px greenyellow, 0 0 13px greenyellow;
+  border: 3px solid var(--player-one);
+  box-shadow: inset 0 0 6px var(--player-one), 0 0 13px var(--player-one);
 }
 
 .slot.playerTwo {
-  border: 3px solid pink;
-  box-shadow: inset 0 0 6px pink, 0 0 13px pink;
+  border: 3px solid var(--player-two);
+  box-shadow: inset 0 0 6px var(--player-two), 0 0 13px var(--player-two);
+}
+
+/* Play Page */
+
+
+.playPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--black-color);
+  z-index: 1;
+}
+
+.playPage.active {
+  display: flex;
+}
+
+.playPage > h2 {
+  font-size: 2rem;
+  margin-bottom: 9rem;
+}
+
+.players {
+  display: flex;
+  gap: 15rem;
+}
+
+.player {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  margin-bottom: 1.4rem;
+}
+
+.playerOne {
+  border-color: var(--player-one);
+  filter: drop-shadow(0 0 10px var(--player-one));
+}
+
+.playerTwo {
+  border-color: var(--player-two);
+  filter: drop-shadow(0 0 10px var(--player-two));
+}
+
+.playerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-bottom: 4rem;
+}
+
+input[type="color"] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  appearance: auto;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  border-width: 0px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+.playButton {
+  background-color: var(--black-color);
+  color: var(--white-color);
+  padding: .8rem 6rem;
+  margin-top: 6rem;
+  border-radius: 10px;
+  font-size: .8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  transition: background, box-shadow, color, 200ms linear;
+}
+
+.playButton:hover {
+  background-color: var(--primary-color);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--primary-color);
 }
