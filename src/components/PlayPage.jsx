@@ -33,6 +33,7 @@ function PlayPage () {
     <div className={classNamePlay}>
       <h2>Custom Your Players</h2>
       <section className='players'>
+        <div className='arrow' />
         <div className='playerContent'>
           <div className='player playerOne'>
             <input id='colorOne' type='color' value={colorOne} onChange={changeColor} />

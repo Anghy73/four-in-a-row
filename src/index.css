@@ -187,8 +187,29 @@ body {
 }
 
 .players {
+  position: relative;
   display: flex;
   gap: 15rem;
+}
+
+.arrow {
+  position: absolute;
+  top: -25px;
+  left: 75%;
+  transform: rotate(120deg);
+  width: 5px;
+  height: 120px;
+  border: 2px dashed var(--white-color);
+}
+
+.arrow::after {
+  content: 'color picker';
+  position: absolute;
+  top: 170px;
+  left: -10px;
+  transform: rotate(240deg);
+  width: max-content;
+  cursor: default;
 }
 
 .player {
