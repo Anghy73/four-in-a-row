@@ -23,7 +23,6 @@ function App () {
 
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
-  // const [activePage, setActivePage] = useState(true)
 
   const resetGame = () => {
     setBoard([
@@ -38,7 +37,7 @@ function App () {
     setWinner(null)
   }
 
-  const checkLineHorizontal = (boardToCheck, row, column) => {
+  const checkLineHorizontal = (boardToCheck, row) => {
     let count = 0
     for (let i = 0; i < boardToCheck[row].length; i++) {
       if (boardToCheck[row][i] === turn && boardToCheck[row][i + 1] === turn && boardToCheck[row][i] === turn && boardToCheck[row][i + 2] === turn) {
@@ -148,25 +147,20 @@ function App () {
 
   const checkWinner = (boardToCheck, row, column) => {
     if (checkLineHorizontal(boardToCheck, row, column)) {
-      console.log('gano aqui')
       setWinner(turn)
     }
 
     if (checkLineVertical(boardToCheck, row, column)) {
-      console.log('gano aqui')
       setWinner(turn)
     }
 
     if (checkLineDiagonalNegative(boardToCheck, row, column)) {
-      console.log('gano aqui')
       setWinner(turn)
     }
     if (checkLineDiagonal(boardToCheck, row, column)) {
-      console.log('gano aqui')
       setWinner(turn)
     }
     if (checkLineReverseDiagonal(boardToCheck, row, column)) {
-      console.log('gano aqui')
       setWinner(turn)
     }
   }
@@ -196,12 +190,11 @@ function App () {
     if (boardToCheck[row][column] !== '') row -= 1
 
     boardToCheck[row][column] = turn
-    // boardToCheck[row][column] = <Slot isOponent={turn === TURNS.O} />
     setBoard(boardToCheck)
     checkWinner(boardToCheck, row, column)
   }
 
-  const updateBoard = (row, column, content) => {
+  const updateBoard = (row, column) => {
     const newBoard = [...board]
     if (newBoard[row][column] !== '') return
     indexDown(newBoard, column)
